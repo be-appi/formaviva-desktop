@@ -2,6 +2,8 @@
 .data
 build
 
+build-dir
+.flatpak-builder
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

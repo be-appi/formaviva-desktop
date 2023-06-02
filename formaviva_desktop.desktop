@@ -1,0 +1,12 @@
+[Desktop Entry]
+Version=0.4
+Type=Application
+
+Name=Formaviva Desktop
+Comment=Formaviva Desktop, Your favorite desktop app!
+Categories=AudioVideo;Music;
+Icon=~/.local/share/formaviva_desktop/formaviva_desktop.png
+
+
+Exec=~/.local/bin/formaviva_desktop
+Terminal=false

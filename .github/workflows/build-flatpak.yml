@@ -1,0 +1,38 @@
+name: Build and Test
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.9'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pdm
+        sudo apt-get install -y flatpak flatpak-builder
+
+    - name: Compile
+      run: make compile
+
+    - name: Build Flatpak
+      run: make flatpak-build
+
+#    - name: Upload Flatpak bundle
+#      uses: actions/upload-artifact@v2
+#      with:
+#        name: flatpak-bundle
+#        path: path/to/your/flatpak/bundle

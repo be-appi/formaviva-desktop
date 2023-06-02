@@ -1,0 +1,74 @@
+[build-system]
+requires = ['pdm-pep517']
+build-backend = 'pdm.pep517.api'
+
+[project]
+name = 'Formaviva Desktop'
+dynamic = ['version']
+description = 'Formaviva Desktop, Your favorite desktop app!'
+authors = [
+    {name = 'Sunn Atumm', email = 'sunn@atumm.org'},
+]
+dependencies = [
+    "PySide6>=6.5.1",
+    "pyinstaller>=5.8.0",
+]
+
+requires-python = '>=3.9,<3.10'
+license = {text = 'MIT license'}
+
+[project.optional-dependencies]
+dev = [
+    'mkdocs-material',
+    'mkdocstrings',
+    'mkdocstrings-python',
+    'mkdocs-git-revision-date-plugin',
+    'bump2version',
+    'pyinstaller'
+]
+
+[project.urls]
+Documentation = 'https://github.com/omars-code/appening#readme'
+Issues = 'https://github.com/omars-code/appening/issues'
+Source = 'https://github.com/omars-code/appening'
+
+
+[tool.coverage.run]
+branch = true
+parallel = true
+omit = [
+  'formaviva_desktop/__about__.py',
+]
+
+[tool.coverage.report]
+exclude_lines = [
+  'no cov',
+  'if __name__ == .__main__.:',
+  'if TYPE_CHECKING:',
+]
+
+[tool.mypy]
+disallow_untyped_calls = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+disallow_subclassing_any = true
+warn_no_return = true
+strict_optional = true
+no_implicit_optional = true
+disallow_any_generics = true
+disallow_any_unimported = true
+warn_redundant_casts = true
+warn_unused_configs = true
+show_traceback = true
+always_true = 'MYPYC'
+
+
+[tool.pytest]
+testpaths='tests/'
+
+[tool.bdist_wheel]
+universal = 1
+
+[tool.flake8]
+exclude = 'docs'
