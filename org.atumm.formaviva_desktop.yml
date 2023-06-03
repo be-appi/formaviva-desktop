@@ -1,0 +1,70 @@
+app-id: org.atumm.formaviva_desktop
+runtime: org.kde.Platform
+runtime-version: '6.3'
+sdk: org.kde.Sdk
+base: io.qt.qtwebengine.BaseApp
+base-version: '6.3'
+command: formaviva_desktop
+finish-args:
+    - --env=QTWEBENGINEPROCESS_PATH=/app/bin
+    - --env=QTWEBENGINE_RESOURCES_PATH=/app/resources
+    - --device=all
+    - --share=ipc
+    - --share=network
+    - --socket=fallback-x11
+    - --socket=pulseaudio
+    - --socket=wayland
+cleanup-commands:
+    - /app/cleanup-BaseApp.sh
+    - rm -rf /app/formaviva_desktop
+    - rm -f /app/bin/formaviva_desktop/libstdc++.so.6 /app/bin/formaviva_desktop/libicuuc.so.56
+modules:
+    -   name: gmp
+        sources:
+            -   type: archive
+                url: https://gmplib.org/download/gmp/gmp-6.2.1.tar.xz
+                sha256: fd4829912cddd12f84181c3451cc752be224643e87fac497b69edddadc49b4f2
+        build-commands:
+            - echo $LD_LIBRARY_PATH
+            - ./configure --prefix=/app
+            - make -j4
+            - make install
+    -   name: mpfr
+        sources:
+            -   type: archive
+                url: https://www.mpfr.org/mpfr-4.1.0/mpfr-4.1.0.tar.xz
+                sha256: 0c98a3f1732ff6ca4ea690552079da9c597872d30e96ec28414ee23c95558a7f
+        build-commands:
+            - ./configure --prefix=/app
+            - make -j4
+            - make install
+    -   name: mpc
+        sources:
+            -   type: archive
+                url: https://ftp.gnu.org/gnu/mpc/mpc-1.2.1.tar.gz
+                sha256: 17503d2c395dfcf106b622dc142683c1199431d095367c6aacba6eec30340459
+        build-commands:
+            - ./configure --prefix=/app
+            - make -j4
+            - make install
+    -   name: gcc
+        buildsystem: simple
+        build-options:
+            env:
+                LD_LIBRARY_PATH: /app/lib:/usr/lib/x86_64-linux-gnu
+        build-commands:
+            - echo $LD_LIBRARY_PATH
+            - ./configure --prefix=/app --enable-languages=c,c++ --disable-multilib
+            - make -j4
+            - make install
+        sources:
+            -   type: archive
+                url: https://ftp.gnu.org/gnu/gcc/gcc-10.1.0/gcc-10.1.0.tar.gz
+                sha256: 954057239c89d25bc7a62bfbceb58026363ad74f079c63fdba27f95abbf60900
+    -   name: formaviva_desktop
+        buildsystem: simple
+        build-commands:
+            - cp formaviva_desktop /app/bin/
+        sources:
+            -   type: file
+                path: dist/formaviva_desktop

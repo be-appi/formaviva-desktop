@@ -1,0 +1,5 @@
+.flatpak-builder
+.venv
+build
+build-dir
+dist
