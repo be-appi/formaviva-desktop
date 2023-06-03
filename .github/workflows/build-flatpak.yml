@@ -1,11 +1,11 @@
 name: Build Flatpak
 
 on:
-  workflow_dispatch:
-  workflow_run:
-    workflows: ["Build and Push Docker Image"]
-    types:
-      - completed
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
 
 jobs:
   build:
