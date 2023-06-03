@@ -1,21 +1,23 @@
 name: Build Flatpak
 
+#on:
+#  push:
+#    branches: [ master ]
+#  pull_request:
+#    branches: [ master ]
 on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
-
+    push:
+        branches: [ 'disabled' ]
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+    build:
+        runs-on: ubuntu-latest
 
-    steps:
-    - name: Check out code
-      uses: actions/checkout@v2
+        steps:
+            -   name: Check out code
+                uses: actions/checkout@v2
 
-    - name: Set up Docker container
-      run: |
-        docker pull sunnflare/appi:latest
-        docker run -v ${{ github.workspace }}:/app -w /app sunnflare/appi:latest /bin/bash -c "make compile && make flatpak-build"
+            -   name: Set up Docker container
+                run: |
+                    docker pull sunnflare/appi:latest
+                    docker run -v ${{ github.workspace }}:/app -w /app sunnflare/appi:latest /bin/bash -c "make compile && make flatpak-build"
