@@ -9,7 +9,19 @@ LABEL description="Docker image for building an appi flatpak app"
 RUN pip install pdm
 
 RUN apt-get update && \
-    apt-get install -y make flatpak flatpak-builder && \
+    apt-get install -y make flatpak flatpak-builder \
+    libgl1-mesa-glx \
+    libegl1-mesa \
+    libxcomposite1 \
+    libxcursor1 \
+    libxi6 \
+    libxrandr2 \
+    libasound2 \
+    libnss3 \
+    libxss1 \
+    libxkbfile1 \
+    libdrm2 \
+    libxshmfence1 && \
     rm -rf /var/lib/apt/lists/*
 
 COPY . /app
