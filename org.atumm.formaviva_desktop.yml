@@ -38,7 +38,6 @@ modules:
             - ./configure --prefix=/app
             - make -j4
             - make install
-
     -   name: mpc
         sources:
             -   type: archive
@@ -54,11 +53,10 @@ modules:
             env:
                 LD_LIBRARY_PATH: /app/lib:/usr/lib/x86_64-linux-gnu
         build-commands:
+            - echo $LD_LIBRARY_PATH
             - ./configure --prefix=/app --enable-languages=c,c++ --disable-multilib
             - make -j4
             - make install
-        finish-args:
-            - --env=LD_LIBRARY_PATH=/app/lib:/usr/lib/x86_64-linux-gnu
         sources:
             -   type: archive
                 url: https://ftp.gnu.org/gnu/gcc/gcc-10.1.0/gcc-10.1.0.tar.gz
