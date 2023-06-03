@@ -5,6 +5,10 @@ name: Build and Push Docker Image
 #    branches: [ master ]
 #  pull_request:
 #    branches: [ master ]
+on:
+  push:
+    tags:
+      - 'shananigans'
 
 jobs:
   build:
