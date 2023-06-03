@@ -9,7 +9,7 @@ LABEL description="Docker image for building an appi flatpak app"
 RUN pip install pdm
 
 RUN apt-get update && \
-    apt-get install -y flatpak flatpak-builder && \
+    apt-get install -y make flatpak flatpak-builder && \
     rm -rf /var/lib/apt/lists/*
 
 COPY . /app
