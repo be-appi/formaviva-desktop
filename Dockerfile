@@ -21,8 +21,21 @@ RUN apt-get update && \
     libxss1 \
     libxkbfile1 \
     libdrm2 \
-    libxshmfence1 && \
+    libxshmfence1 \
+    libxkbcommon-x11-0 \
+    libxcb-cursor0 \
+    libxcb-icccm4 \
+    libxcb-image0 \
+    libxcb-keysyms1 \
+    libxcb-randr0 \
+    libxcb-render-util0 \
+    libxcb-shape0 \
+    libxcb-xkb1 \
+    libpulse0 && \
     rm -rf /var/lib/apt/lists/*
+
+RUN flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo && \
+    flatpak install -y flathub org.kde.Sdk/x86_64/6.3
 
 COPY . /app
 
